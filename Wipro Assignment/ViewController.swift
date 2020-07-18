@@ -55,8 +55,9 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? CustomCell {
+            cell.selectionStyle = .none
             cell.labelTitle.text = "Title"
-            cell.labelDescription.text = "Description Text\nDescription Text\nDescription Text\nDescription Text\nweqwrwqe"
+            cell.labelDescription.text = "Description Text"
             cell.imageViewCustomCell.rounded()
             return cell
         }

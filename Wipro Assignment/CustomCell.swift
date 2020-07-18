@@ -57,14 +57,14 @@ class CustomCell: UITableViewCell {
         addSubview(labelTitle)
         addSubview(labelDescription)
         
-        imageViewCustomCell.anchorWithConstantsToTop(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 8.0, leftConstant: 8.0, bottomConstant: 0.0, rightConstant: 0.0)
-        imageViewCustomCell.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        imageViewCustomCell.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        imageViewCustomCell.anchorWithConstantsToTop(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 4.0, leftConstant: 8.0, bottomConstant: 0.0, rightConstant: 0.0)
+        imageViewCustomCell.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        imageViewCustomCell.widthAnchor.constraint(equalToConstant: 36).isActive = true
         
-        labelTitle.anchorWithConstantsToTop(topAnchor, left: imageViewCustomCell.rightAnchor, bottom: labelDescription.topAnchor, right: rightAnchor, topConstant: 8.0, leftConstant: 8.0, bottomConstant: 4.0, rightConstant: 8.0)
-        labelTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 21.0).isActive = true
+        labelTitle.anchorWithConstantsToTop(topAnchor, left: imageViewCustomCell.rightAnchor, bottom: labelDescription.topAnchor, right: rightAnchor, topConstant: 4.0, leftConstant: 8.0, bottomConstant: 2.0, rightConstant: 8.0)
+        labelTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 17.0).isActive = true
         
-        labelDescription.anchorWithConstantsToTop(nil, left: labelTitle.leftAnchor, bottom: bottomAnchor, right: labelTitle.rightAnchor, topConstant: 0.0, leftConstant: 0.0, bottomConstant: 8.0, rightConstant: 0.0)
-        labelDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 21.0).isActive = true
+        labelDescription.anchorWithConstantsToTop(nil, left: labelTitle.leftAnchor, bottom: bottomAnchor, right: labelTitle.rightAnchor, topConstant: 0.0, leftConstant: 0.0, bottomConstant: 4.0, rightConstant: 0.0)
+        labelDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 17.0).isActive = true
     }
 }

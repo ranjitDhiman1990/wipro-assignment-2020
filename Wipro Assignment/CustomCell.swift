@@ -52,7 +52,9 @@ class CustomCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    // MARK:- Configure Cell
     func setupViews() {
+        selectionStyle = .none
         addSubview(imageViewCustomCell)
         addSubview(labelTitle)
         addSubview(labelDescription)
@@ -66,5 +68,25 @@ class CustomCell: UITableViewCell {
         
         labelDescription.anchorWithConstantsToTop(nil, left: labelTitle.leftAnchor, bottom: bottomAnchor, right: labelTitle.rightAnchor, topConstant: 0.0, leftConstant: 0.0, bottomConstant: 4.0, rightConstant: 0.0)
         labelDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 17.0).isActive = true
+    }
+    
+    // MARK:- Update cell content
+    func updateCellContent(with fact: FactAbout) {
+        self.labelTitle.text = fact.title
+        self.labelDescription.text = fact.description
+        self.imageViewCustomCell.rounded()
+        
+        // Image downloading pending
+        if let imageURLString = fact.imageHref, imageURLString.count > 0 {
+            DispatchQueue.global(qos: .background).async {[weak self] in
+                guard let self = self else { return }
+                self.imageViewCustomCell.downloadImage(from: imageURLString) { (image) in
+                    DispatchQueue.main.async {[weak self] in
+                        guard let self = self, let image = image else { return }
+                        self.imageViewCustomCell.image = image
+                    }
+                }
+            }
+        }
     }
 }

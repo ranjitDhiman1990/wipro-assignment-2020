@@ -8,6 +8,9 @@
 
 import UIKit
 
+var imageCache = ImageCache()
+typealias ImageDownloadCompletionHandler = (_ image: UIImage?) -> ()
+
 extension UIView {
     
     func anchorToTop(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil) {
@@ -58,4 +61,31 @@ extension UIView {
         self.layer.cornerRadius = self.frame.size.width/2
         self.clipsToBounds = true
     }
+}
+
+extension UIImageView {
+    func downloadImage(from urlString: String, completion: ImageDownloadCompletionHandler?) {
+        if let imageFromCache = imageCache["\(urlString)"] {
+            completion?(UIImage(data: imageFromCache))
+            return
+        }
+        guard let url = URL(string: urlString) else {
+            print("Wrong URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            if error != nil {
+                return
+            }
+            guard let data = data else { return }
+            DispatchQueue.main.async {
+                if let image = UIImage(data: data) {
+                    imageCache["\(urlString)"] = image.pngData()
+                    completion?(image)
+                }
+            }
+        }).resume()
+    }
+
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E06FE5324C4014100B1B7EE /* FactDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E06FE5224C4014100B1B7EE /* FactDetails.swift */; };
+		1E06FE5824C4057800B1B7EE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E06FE5724C4057800B1B7EE /* Constants.swift */; };
 		1E6F366C24C34DAA002375CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6F366B24C34DAA002375CE /* AppDelegate.swift */; };
 		1E6F367024C34DAA002375CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6F366F24C34DAA002375CE /* ViewController.swift */; };
 		1E6F367524C34DB0002375CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6F367424C34DB0002375CE /* Assets.xcassets */; };
@@ -14,9 +16,13 @@
 		1E6F368124C35A76002375CE /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6F368024C35A76002375CE /* ImageCache.swift */; };
 		1E6F368424C35C16002375CE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6F368324C35C16002375CE /* UIView+Extension.swift */; };
 		1E6F368624C369FB002375CE /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6F368524C369FB002375CE /* CustomCell.swift */; };
+		1EC51A5C24C4097600F2FA36 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC51A5B24C4097600F2FA36 /* UIViewController+Extension.swift */; };
+		1EC51A6024C43A5200F2FA36 /* facts.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EC51A5F24C43A5200F2FA36 /* facts.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E06FE5224C4014100B1B7EE /* FactDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactDetails.swift; sourceTree = "<group>"; };
+		1E06FE5724C4057800B1B7EE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1E6F366824C34DAA002375CE /* Wipro Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wipro Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6F366B24C34DAA002375CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6F366F24C34DAA002375CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,6 +32,8 @@
 		1E6F368024C35A76002375CE /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		1E6F368324C35C16002375CE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		1E6F368524C369FB002375CE /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		1EC51A5B24C4097600F2FA36 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		1EC51A5F24C43A5200F2FA36 /* facts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = facts.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +47,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E06FE5124C400B100B1B7EE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1E06FE5224C4014100B1B7EE /* FactDetails.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1E06FE5624C4055700B1B7EE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1E6F367424C34DB0002375CE /* Assets.xcassets */,
+				1E06FE5724C4057800B1B7EE /* Constants.swift */,
+				1EC51A5F24C43A5200F2FA36 /* facts.json */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		1E6F365F24C34DAA002375CE = {
 			isa = PBXGroup;
 			children = (
@@ -58,12 +84,13 @@
 		1E6F366A24C34DAA002375CE /* Wipro Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				1E06FE5624C4055700B1B7EE /* Resources */,
+				1E06FE5124C400B100B1B7EE /* Model */,
 				1E6F368224C35BEA002375CE /* Extensions */,
 				1E6F367F24C35A35002375CE /* AppHelperClasses */,
 				1E6F366B24C34DAA002375CE /* AppDelegate.swift */,
 				1E6F366F24C34DAA002375CE /* ViewController.swift */,
 				1E6F368524C369FB002375CE /* CustomCell.swift */,
-				1E6F367424C34DB0002375CE /* Assets.xcassets */,
 				1E6F367624C34DB0002375CE /* LaunchScreen.storyboard */,
 				1E6F367924C34DB0002375CE /* Info.plist */,
 			);
@@ -82,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				1E6F368324C35C16002375CE /* UIView+Extension.swift */,
+				1EC51A5B24C4097600F2FA36 /* UIViewController+Extension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -145,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E6F367824C34DB0002375CE /* LaunchScreen.storyboard in Resources */,
+				1EC51A6024C43A5200F2FA36 /* facts.json in Resources */,
 				1E6F367524C34DB0002375CE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,11 +185,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EC51A5C24C4097600F2FA36 /* UIViewController+Extension.swift in Sources */,
 				1E6F368124C35A76002375CE /* ImageCache.swift in Sources */,
 				1E6F367024C34DAA002375CE /* ViewController.swift in Sources */,
 				1E6F368624C369FB002375CE /* CustomCell.swift in Sources */,
 				1E6F368424C35C16002375CE /* UIView+Extension.swift in Sources */,
 				1E6F366C24C34DAA002375CE /* AppDelegate.swift in Sources */,
+				1E06FE5324C4014100B1B7EE /* FactDetails.swift in Sources */,
+				1E06FE5824C4057800B1B7EE /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

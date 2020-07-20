@@ -18,9 +18,10 @@ class ViewController: UIViewController {
         return tableView
     }()
     
-    var factDetails: FactDetails?
+    var refreshControl = UIRefreshControl()
     var loaderView = CustomLoaderView(frame: CGRect(x: 0, y: 0, width: 40.0, height: 40.0))
     
+    var factDetails: FactDetails?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,9 @@ class ViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
         registerCells()
     }
     
@@ -56,6 +60,10 @@ class ViewController: UIViewController {
         loaderView.translatesAutoresizingMaskIntoConstraints = false
         loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    @objc func refresh(_ sender: UIRefreshControl) {
+        self.loadFactDetails()
     }
 }
 
@@ -118,7 +126,11 @@ extension ViewController {
         self.loaderView.startAnimating()
         APIServices.shared.getFactDetails { [weak self] (response) in
             guard let self = self else { return }
-            self.loaderView.stopAnimating()
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+                self.loaderView.stopAnimating()
+            }
+            
             switch(response) {
             case .success(let factDetails):
                 self.factDetails = factDetails

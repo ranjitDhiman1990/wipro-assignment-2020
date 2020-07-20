@@ -68,24 +68,39 @@ class CustomCell: UITableViewCell {
         
         labelDescription.anchorWithConstantsToTop(nil, left: labelTitle.leftAnchor, bottom: bottomAnchor, right: labelTitle.rightAnchor, topConstant: 0.0, leftConstant: 0.0, bottomConstant: 4.0, rightConstant: 0.0)
         labelDescription.heightAnchor.constraint(greaterThanOrEqualToConstant: 17.0).isActive = true
+        
+        imageViewCustomCell.rounded()
     }
     
     // MARK:- Update cell content
     func updateCellContent(with fact: FactAbout) {
         self.labelTitle.text = fact.title
         self.labelDescription.text = fact.description
-        self.imageViewCustomCell.rounded()
+        self.imageViewCustomCell.image = UIImage(named: "placeholderImage")
         
         // Image downloading pending
         if let imageURLString = fact.imageHref, imageURLString.count > 0 {
             DispatchQueue.global(qos: .background).async {[weak self] in
-                guard let self = self else { return }
-                self.imageViewCustomCell.downloadImage(from: imageURLString) { (image) in
+                guard let weakSelf = self else {
                     DispatchQueue.main.async {[weak self] in
-                        guard let self = self, let image = image else { return }
-                        self.imageViewCustomCell.image = image
+                        self?.imageViewCustomCell.rounded()
+                    }
+                    return
+                }
+                weakSelf.imageViewCustomCell.downloadImage(from: imageURLString) { (image) in
+                    DispatchQueue.main.async {[weak self] in
+                        guard let weakSelf = self, let image = image else {
+                            self?.imageViewCustomCell.rounded()
+                            return
+                        }
+                        weakSelf.imageViewCustomCell.image = image
+                        weakSelf.imageViewCustomCell.rounded()
                     }
                 }
+            }
+        } else {
+            DispatchQueue.main.async {[weak self] in
+                self?.imageViewCustomCell.rounded()
             }
         }
     }

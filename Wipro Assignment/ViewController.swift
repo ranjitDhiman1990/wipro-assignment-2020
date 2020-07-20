@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     }()
     
     var factDetails: FactDetails?
+    var loaderView = CustomLoaderView(frame: CGRect(x: 0, y: 0, width: 40.0, height: 40.0))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,8 @@ class ViewController: UIViewController {
     func initialiveView() {
         view.backgroundColor = .white
         title = defaultHeaderTitle
+        setupActivityIndicatorView()
+        
         view.addSubview(tableView)
         tableView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         tableView.estimatedRowHeight = 44.0
@@ -41,6 +45,17 @@ class ViewController: UIViewController {
     
     func registerCells() {
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: cellID)
+    }
+    
+    private func setupActivityIndicatorView() {
+        view.addSubview(loaderView)
+        setupActivityIndicatorViewConstraints()
+    }
+
+    private func setupActivityIndicatorViewConstraints() {
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
+        loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }
 
@@ -59,6 +74,7 @@ extension ViewController: UITableViewDataSource {
             if let facts = factDetails?.facts, indexPath.row < facts.count {
                 let fact = facts[indexPath.row]
                 cell.updateCellContent(with: fact)
+                cell.imageViewCustomCell.rounded()
             }
             return cell
         }
@@ -99,18 +115,23 @@ extension ViewController: UITableViewDelegate {
 // MARK:- API services
 extension ViewController {
     func loadFactDetails() {
-        if let path = Bundle.main.path(forResource: "facts", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let factDetails = try JSONDecoder().decode(FactDetails.self, from: data)
+        self.loaderView.startAnimating()
+        APIServices.shared.getFactDetails { [weak self] (response) in
+            guard let self = self else { return }
+            self.loaderView.stopAnimating()
+            switch(response) {
+            case .success(let factDetails):
                 self.factDetails = factDetails
-                self.title = self.factDetails?.title
-                DispatchQueue.main.async {[weak self] in
-                    guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.title = factDetails.title
                     self.tableView.reloadData()
                 }
-            } catch let error {
-                print(error)
+                break
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showAlertWithSingleButton(title: nil, message: error.message, okButtonText: "OK", okButtonAction: nil)
+                }
+                break
             }
         }
     }
